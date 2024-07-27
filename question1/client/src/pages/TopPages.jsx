@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
 
 const TopPages = () => {
   const [data, setData] = useState([]);
@@ -103,6 +104,7 @@ const TopPages = () => {
           </tbody>
         </table>
       </div>
+        <Footer />
     </div>
   );
 };

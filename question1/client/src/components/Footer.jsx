@@ -5,7 +5,7 @@ const Footer = () => {
     <footer className="bg-gray-800 text-white py-6 mt-8">
       <div className="container mx-auto text-center">
         <p className="text-sm mb-2">
-          I hope you like this site. Looking forward to your selection.
+          I hope you like this site. Looking forward for my selection.
         </p>
         <p className="text-sm mb-2">
           - Agam Pandey 2100640100004

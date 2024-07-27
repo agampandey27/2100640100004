@@ -6,6 +6,9 @@ const Table = () => {
   const [token, setToken] = useState(null);
   const [company, setCompany] = useState('AMZ');
   const [category, setCategory] = useState('Laptop');
+  const [priceRange, setPriceRange] = useState('1-10000');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(10);
 
   const clientCredentials = {
     companyName: "Hindustan College Of Science and Technology",
@@ -33,7 +36,8 @@ const Table = () => {
     const fetchData = async () => {
       if (token) {
         try {
-          const url = `http://20.244.56.144/test/companies/${company}/categories/${category}/products?top=10&minPrice=1&maxPrice=10000`;
+          const [minPrice, maxPrice] = priceRange.split('-');
+          const url = `http://20.244.56.144/test/companies/${company}/categories/${category}/products?top=100&minPrice=${minPrice}&maxPrice=${maxPrice}&page=${currentPage}&limit=${itemsPerPage}`;
           const response = await axios.get(url, {
             headers: {
               Authorization: `Bearer ${token}`
@@ -47,10 +51,20 @@ const Table = () => {
     };
 
     fetchData();
-  }, [token, company, category]);
+  }, [token, company, category, priceRange, currentPage]);
 
   const companies = ["AMZ", "FLP", "SNP", "MYN", "AZO"];
   const categories = ["Phone", "Computer", "TV", "Earphone", "Tablet", "Charger", "Mouse", "Keypad", "Bluetooth", "Pendrive", "Remote", "Speaker", "Headset", "Laptop", "PC"];
+  const priceRanges = ["1-10000", "10000-20000", "20000-30000", "30000-40000", "40000-50000"];
+  
+  const totalPages = Math.ceil(data.length / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const currentData = data.slice(startIndex, endIndex);
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
 
   return (
     <div className="container mx-auto p-4">
@@ -74,6 +88,15 @@ const Table = () => {
             <option key={cat} value={cat}>{cat}</option>
           ))}
         </select>
+        <select
+          className="border rounded p-2"
+          value={priceRange}
+          onChange={(e) => setPriceRange(e.target.value)}
+        >
+          {priceRanges.map((range) => (
+            <option key={range} value={range}>{range}</option>
+          ))}
+        </select>
       </div>
       <table className="min-w-full divide-y divide-gray-200">
         <thead className="bg-gray-100">
@@ -86,7 +109,7 @@ const Table = () => {
           </tr>
         </thead>
         <tbody className="bg-white divide-y divide-gray-200">
-          {data.map((item) => (
+          {currentData.map((item) => (
             <tr key={item.id}>
               <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{item.productName}</td>
               <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${item.price.toFixed(2)}</td>
@@ -97,6 +120,17 @@ const Table = () => {
           ))}
         </tbody>
       </table>
+      <div className="mt-4 flex justify-center space-x-2">
+        {Array.from({ length: totalPages }, (_, index) => (
+          <button
+            key={index}
+            className={`px-4 py-2 border rounded ${currentPage === index + 1 ? 'bg-blue-500 text-white' : 'bg-white text-blue-500'}`}
+            onClick={() => handlePageChange(index + 1)}
+          >
+            {index + 1}
+          </button>
+        ))}
+      </div>
     </div>
   );
 };

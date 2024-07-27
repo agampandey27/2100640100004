@@ -41,16 +41,9 @@ Copy code
 
 
     npm run dev
-The application will be available at http://localhost:3000.
 
 Environment Variables
 Make sure to set up any necessary environment variables if your application requires them.
-
-Contributing
-If you'd like to contribute to this project, please fork the repository and submit a pull request. Contributions are welcome!
-
-License
-This project is licensed under the MIT License.
 
 Contact
 For any inquiries or feedback, you can contact:

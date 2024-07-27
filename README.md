@@ -29,6 +29,8 @@ To start the development server and view the application in your browser:
 
 bash
 Copy code
+
+
             npm run dev
 The application will be available at http://localhost:3000.
 

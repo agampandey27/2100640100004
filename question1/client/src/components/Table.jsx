@@ -4,6 +4,8 @@ import axios from 'axios';
 const Table = () => {
   const [data, setData] = useState([]);
   const [token, setToken] = useState(null);
+  const [company, setCompany] = useState('AMZ');
+  const [category, setCategory] = useState('Laptop');
 
   const clientCredentials = {
     companyName: "Hindustan College Of Science and Technology",
@@ -31,7 +33,8 @@ const Table = () => {
     const fetchData = async () => {
       if (token) {
         try {
-          const response = await axios.get('http://20.244.56.144/test/companies/AMZ/categories/Laptop/products?top=10&minPrice=1&maxPrice=10000', {
+          const url = `http://20.244.56.144/test/companies/${company}/categories/${category}/products?top=10&minPrice=1&maxPrice=10000`;
+          const response = await axios.get(url, {
             headers: {
               Authorization: `Bearer ${token}`
             }
@@ -44,11 +47,34 @@ const Table = () => {
     };
 
     fetchData();
-  }, [token]);
+  }, [token, company, category]);
+
+  const companies = ["AMZ", "FLP", "SNP", "MYN", "AZO"];
+  const categories = ["Phone", "Computer", "TV", "Earphone", "Tablet", "Charger", "Mouse", "Keypad", "Bluetooth", "Pendrive", "Remote", "Speaker", "Headset", "Laptop", "PC"];
 
   return (
     <div className="container mx-auto p-4">
       <h1 className="text-2xl font-bold mb-4">Product Table</h1>
+      <div className="mb-4 flex space-x-4">
+        <select
+          className="border rounded p-2"
+          value={company}
+          onChange={(e) => setCompany(e.target.value)}
+        >
+          {companies.map((comp) => (
+            <option key={comp} value={comp}>{comp}</option>
+          ))}
+        </select>
+        <select
+          className="border rounded p-2"
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
+        >
+          {categories.map((cat) => (
+            <option key={cat} value={cat}>{cat}</option>
+          ))}
+        </select>
+      </div>
       <table className="min-w-full divide-y divide-gray-200">
         <thead className="bg-gray-100">
           <tr>

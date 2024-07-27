@@ -27,7 +27,10 @@ Copy code
 
 
     npm install
+    npm i react-router-dom axios
 Start the Development Server
+
+ALSO ADD TAILWIND CSS OR TAILWIND CDN
 
 To start the development server and view the application in your browser:
 

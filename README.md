@@ -16,8 +16,8 @@ bash
 Copy code
 
 
-            git clone https://github.com/your-username/your-repo.git
-            cd your-repo
+    git clone https://github.com/your-username/your-repo.git
+    cd your-repo
 Install Dependencies
 
 Install the required npm packages using:
@@ -26,7 +26,7 @@ bash
 Copy code
 
 
-        npm install
+    npm install
 Start the Development Server
 
 To start the development server and view the application in your browser:
@@ -37,7 +37,7 @@ Copy code
 
 
 
-        npm run dev
+    npm run dev
 The application will be available at http://localhost:3000.
 
 Environment Variables
